@@ -12,7 +12,7 @@
             "class": "Tenant",
             "A1": {
                 "class": "Application",
-                "service": {
+                "serviceBlah": {
                     "class": "Service_HTTP",
                     "virtualAddresses": [
                         "10.0.1.10"
