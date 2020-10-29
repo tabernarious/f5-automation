@@ -4,7 +4,7 @@
   tasks:
     - name: F5 ATC POST
       include_role:
-        name: atc_deploy
+        name: f5devcentral.atc_deploy
       vars:
         ## atc_method: GET, POST, or DELETE (default=GET)
         atc_method: POST
