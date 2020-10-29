@@ -15,7 +15,7 @@
                 "serviceBlah": {
                     "class": "Service_HTTP",
                     "virtualAddresses": [
-                        "10.0.1.10"
+                        "10.20.102.10"
                     ],
                     "pool": "web_pool"
                 },
