@@ -1,6 +1,6 @@
 - name: POST F5 ATC Declaration
   hosts: bigips
-  gather_facts: false:
+  gather_facts: false
   tasks:
     - name: F5 ATC POST
       include_role:
