@@ -1,6 +1,6 @@
 ---
 - name: Using AS3 to deploy a configuration
-  hosts: bigip102.tabernarious.net
+  hosts: bigip102
   gather_facts: False
   vars:
     provider:
