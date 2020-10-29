@@ -21,7 +21,7 @@
   tasks:
     - name: Deploy a simple HTTP application
       bigip_appsvcs_extension:
-        content: "{{ lookup('template', 'templates/AS3-http-app.j2') }}"
+        content: "{{ lookup('template', 'templates/simple_http_app.as3.j2') }}"
         state: present
         provider: "{{ provider }}"
       delegate_to: localhost
