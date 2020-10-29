@@ -65,6 +65,7 @@
         headers:
           X-F5-Auth-Token: "{{ f5_auth_token }}"
       register: atc_response
+      delegate_to: localhost
       until:
         - atc_response is success
         - atc_response.json is defined
