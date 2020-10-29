@@ -22,7 +22,7 @@
     - name: Remove a simple HTTP application
       bigip_appsvcs_extension:
         tenants:
-          - A1
+          - Sample_01
         state: absent
         provider: "{{ provider }}"
       delegate_to: localhost
