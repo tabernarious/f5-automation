@@ -1,0 +1,1 @@
+bigip102 ansible_host=10.10.102.1 bigip_username=admin bigip_password=admin

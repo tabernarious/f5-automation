@@ -1,0 +1,27 @@
+---
+- name: Using AS3 to deploy a configuration
+  hosts: bigip102.tabernarious.net
+  gather_facts: False
+  vars:
+    provider:
+      password: "{{ bigip_password }}"
+      server: "{{ ansible_host }}"
+      user: "{{ bigip_username }}"
+      validate_certs: False
+ 
+  vars_prompt:
+    - name: TENANT
+      prompt: "What is the tenant name? "
+      private: no
+
+    - name: VIP_ADDRESS
+      prompt: "What is the virtual IP address? "
+      private: no
+
+  tasks:
+    - name: Deploy a simple HTTP application
+      bigip_appsvcs_extension:
+        content: "{{ lookup('template', 'templates/AS3-http-app.j2') }}"
+        state: present
+        provider: "{{ provider }}"
+      delegate_to: localhost
