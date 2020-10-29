@@ -1,0 +1,43 @@
+- name: POST F5 ATC Declaration
+  hosts: bigip
+
+  tasks:
+
+    - name: F5 ATC POST
+      include_role:
+        name: atc_deploy
+      vars:
+        ## atc_method: GET, POST, or DELETE (default=GET)
+        atc_method: POST
+
+        ## atc_declaration... lookup template, _file, or _url
+        atc_declaration: "{{ lookup('template', 'decl.json') }}"
+        # atc_declaration_file: "files/as3.json"
+        # atc_declaration_url: "https://testurl/as3.json"
+
+        ## atc_service: AS3, Device, or Telemetry (auto-selected if not defined)
+
+        ## atc_delay: 30
+        atc_delay: 10
+
+        ## atc_retries: 10
+        atc_retries: 5
+
+        ## as3_tenant: TENANT_NAME (limits scope to specified tenant)
+
+        ## as3_show: base, full, or expanded (default=base)
+
+        ## as3_showhash: true, false
+
+        ## check_teem: true
+
+        provider:
+          server: 10.10.102.1
+          server_port: "443"
+          user: admin
+          password: admin
+          validate_certs: "false"
+          auth_provider: tmos
+
+    ## atc_AS3_status, atc_DO_status, atc_TS_status
+    - debug: var=atc_AS3_status
