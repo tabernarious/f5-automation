@@ -1,5 +1,5 @@
 - name: POST F5 ATC Declaration
-  hosts: bigip
+  hosts: bigips
 
   tasks:
 
@@ -10,9 +10,9 @@
         ## atc_method: GET, POST, or DELETE (default=GET)
         atc_method: POST
 
-        ## atc_declaration... lookup template, _file, or _url
-        atc_declaration: "{{ lookup('template', 'decl.json') }}"
-        # atc_declaration_file: "files/as3.json"
+        ## Use ONLY one of the following "atc_declaration" methods at a time
+        # atc_declaration: "{{ lookup('template', 'decl.json') }}"
+        atc_declaration_file: "simple_http_app.as3.json"
         # atc_declaration_url: "https://testurl/as3.json"
 
         ## atc_service: AS3, Device, or Telemetry (auto-selected if not defined)
