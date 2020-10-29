@@ -12,6 +12,7 @@
             "class": "Tenant",
             "A1": {
                 "class": "Application",
+                "template": "generic"
                 "service": {
                     "class": "Service_HTTP",
                     "virtualAddresses": [
