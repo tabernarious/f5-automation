@@ -21,7 +21,8 @@
 
     - name: Remove a simple HTTP application
       bigip_appsvcs_extension:
-        content: "{{ lookup('file', 'simple_http_app.as3.json') }}"
+        tenants:
+          - A1
         state: absent
         provider: "{{ provider }}"
       delegate_to: localhost
