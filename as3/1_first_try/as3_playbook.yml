@@ -16,3 +16,14 @@
         state: present
         provider: "{{ provider }}"
       delegate_to: localhost
+      tags:
+        - "deploy"
+
+    - name: Remove a simple HTTP application
+      bigip_appsvcs_extension:
+        content: "{{ lookup('file', 'simple_http_app.as3.json') }}"
+        state: absent
+        provider: "{{ provider }}"
+      delegate_to: localhost
+      tags:
+        - "remove"
