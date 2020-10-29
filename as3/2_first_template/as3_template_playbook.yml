@@ -11,17 +11,21 @@
  
   vars_prompt:
     - name: TENANT
-      prompt: "What is the tenant name? "
+      prompt: "What is the Tenant name? "
+      private: no
+
+    - name: VIP_NAME
+      prompt: "What is the Virtual Server name? "
       private: no
 
     - name: VIP_ADDRESS
-      prompt: "What is the virtual IP address? "
+      prompt: "What is the Virtual IP address? "
       private: no
 
   tasks:
     - name: Deploy a simple HTTP application
       bigip_appsvcs_extension:
-        content: "{{ lookup('template', 'templates/simple_http_app.as3.j2') }}"
+        content: "{{ lookup('template', 'templates/custom_http_app.as3.j2') }}"
         state: present
         provider: "{{ provider }}"
       delegate_to: localhost
