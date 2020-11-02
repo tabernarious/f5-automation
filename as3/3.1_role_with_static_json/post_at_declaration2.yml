@@ -6,29 +6,12 @@
       include_role:
         name: /home/danielt/ansible/ansible-role-f5_atc_deploy_declaration
       vars:
-        ## atc_method: GET, POST, or DELETE (default=GET)
         atc_method: POST
-
-        ## Use ONLY one of the following "atc_declaration" methods at a time
-        # atc_declaration: "{{ lookup('template', 'decl.json') }}"
-        atc_declaration_file: "/home/danielt/ansible/f5-automation/as3/3_role_with_static_json/simple_http_app.as3.json"
-        # atc_declaration_url: "https://testurl/as3.json"
-
-        ## atc_service: AS3, Device, or Telemetry (auto-selected if not defined)
-
-        ## atc_delay: 30
+        atc_declaration_file: "/home/danielt/ansible/f5-automation/as3/3.1_role_with_static_json/simple_http_app.as3.json"
         atc_delay: 10
-
-        ## atc_retries: 10
         atc_retries: 5
-
         ## as3_tenant: TENANT_NAME (limits scope to specified tenant)
-
-        ## as3_show: base, full, or expanded (default=base)
-
-        ## as3_showhash: true, false
-
-        ## check_teem: true
+        #as3_tenant: Sample_01
 
         provider:
           server: 10.10.102.1
@@ -36,7 +19,9 @@
           user: admin
           password: admin
           validate_certs: "false"
-          auth_provider: tmos
+          #auth_provider: tmos
 
-    ## atc_AS3_status, atc_DO_status, atc_TS_status
-    - debug: var=atc_AS3_status
+    ## atc_AS3_status, atc_DO_status, or atc_TS_status
+    - Name: Debug declaration status
+      debug:
+        var: atc_AS3_status
