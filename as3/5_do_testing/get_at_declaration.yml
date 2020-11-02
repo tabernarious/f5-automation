@@ -1,6 +1,6 @@
 - name: GET AT Declaration
   hosts: bigip102
-  #gather_facts:
+  gather_facts: false
   tasks:
 
     - name: F5 ATC GET
