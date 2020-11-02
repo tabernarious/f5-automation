@@ -22,6 +22,6 @@
           #auth_provider: tmos
 
     ## atc_AS3_status, atc_DO_status, or atc_TS_status
-    - Name: Debug declaration status
+    - name: Debug declaration status
       debug:
         var: atc_AS3_status
