@@ -1,0 +1,24 @@
+- name: GET AT Declaration
+  hosts: bigip102
+
+  tasks:
+
+    - name: ATC GET
+      include_role:
+        name: atc_deploy
+      vars:
+        atc_method: GET
+        # Select the service as AS3, Device, or Telemetry
+        atc_service: Device
+        provider:
+          server: 10.10.102.1
+          #server_port: "443"
+          user: admin
+          password: admin
+          validate_certs: "false"
+          #auth_provider: tmos
+
+    ## atc_AS3_status, atc_DO_status, or atc_TS_status
+    - name: Output declaration status
+      debug:
+        var: atc_GET_status
