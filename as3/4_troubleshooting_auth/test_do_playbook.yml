@@ -1,0 +1,73 @@
+- name: Testing F5 Authentication
+  hosts: bigip102
+  gather_facts: false
+  tasks:
+    - name: Setup provider and varables
+      set_fact:
+        provider:
+          server: 10.10.102.1
+          server_port: "443"
+          user: admin
+          password: admin
+          validate_certs: "false"
+          auth_provider: tmos
+
+        # Manual
+        atc_service: "Device"
+        atc_show: "{{ as3_show|default(omit) }}"
+        atc_show_hash: "{{ as3_showhash|default(false) }}"
+        atc_declaration: "/home/danielt/ansible/f5-automation/as3/3_role_with_static_json/simple_http_app.as3.json"
+        atc_delay: 10
+        atc_retries: 5
+
+        # Defaults
+        atc_timeout: 120
+
+    - name: Setup service "{{ atc_service }}" endpoints
+      set_fact:
+        atc_url: "/mgmt/shared/appsvcs/declare"
+        atc_check_url: "/mgmt/shared/declarative-onboarding/info"
+
+    - name: Get authentication token
+      uri:
+        url: "https://{{ provider.server }}:{{ provider.server_port }}/mgmt/shared/authn/login"
+        method: POST
+        timeout: "{{ atc_timeout }}"
+        validate_certs: "{{ provider.validate_certs }}"
+        body:
+          username: "{{ provider.user }}"
+          password: "{{ provider.password }}"
+          loginProviderName: "{{ provider.auth_provider | default('tmos') }}"
+        body_format: json
+      register: authtoken
+      delegate_to: localhost
+
+    - name: Set the token fact if authentication succeeded
+      set_fact:
+        f5_auth_token: "{{ authtoken.json.token.token }}"
+      when: authtoken is success
+
+    - name: Test authentication
+      uri:
+        url: "https://{{ provider.server }}:{{ provider.server_port }}/mgmt/shared/echo"
+        timeout: "{{ atc_timeout }}"
+        validate_certs: "{{ provider.validate_certs }}"
+        headers:
+          X-F5-Auth-Token: "{{ f5_auth_token }}"
+      register: status
+      delegate_to: localhost
+
+    - name: Verify "{{ atc_service }}" service is available, and collect service info
+      uri:
+        url: "https://{{ provider.server }}:{{ provider.server_port }}{{ atc_check_url }}"
+        timeout: "{{ atc_timeout }}"
+        validate_certs: "{{ provider.validate_certs }}"
+        headers:
+          X-F5-Auth-Token: "{{ f5_auth_token }}"
+      register: atc_response
+      delegate_to: localhost
+      until:
+        - atc_response is success
+        - atc_response.json is defined
+      retries: "{{ atc_retries }}"
+      delay: "{{ atc_delay }}"
