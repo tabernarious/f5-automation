@@ -11,7 +11,7 @@
         #atc_delay: 10
         #atc_retries: 5
         # Select the service as AS3, Device, or Telemetry
-        #atc_service: Device
+        atc_service: Device
 
         provider:
           server: 10.10.102.1
