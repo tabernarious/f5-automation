@@ -1,8 +1,7 @@
-- name: GET AT Declaration
+- name: GET F5 AT Declaration
   hosts: bigip102
   gather_facts: false
   tasks:
-
     - name: F5 ATC GET
       include_role:
         name: /home/danielt/ansible/ansible-role-f5_atc_deploy_declaration
@@ -12,15 +11,15 @@
         #atc_delay: 10
         #atc_retries: 5
         # Select the service as AS3, Device, or Telemetry
-        atc_service: Device
+        #atc_service: Device
 
         provider:
           server: 10.10.102.1
-          #server_port: "443"
+          server_port: "443"
           user: admin
           password: admin
           validate_certs: "false"
-          #auth_provider: tmos
+          auth_provider: tmos
 
     ## atc_AS3_status, atc_DO_status, or atc_TS_status
     - name: Output declaration status
