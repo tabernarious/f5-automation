@@ -1,0 +1,18 @@
+[f5s]
+# mgmt_ip may be omitted if the hostname is resolvable
+# reboot group should be one of 1, 2, or 0 to disable reboot
+f5-5000-05.msplab.grp reboot_group=1
+
+[f5s:vars]
+# The ISO to upload
+new_image="BIGIP-15.1.2-0.0.9.iso"
+# Where on the local system the ISO can be found
+new_image_dir="/home/danielt/Downloads"
+# Where on the local system to place backups.
+# Subdirectories will be created based on the inventory hostname
+backup_loc = "/home/danielt/Downloads/f5backups"
+# Prefix for the backups. For example a change reference, or just "backup".
+# "pre-upgrade" and "post-upgrade" will be appended to the prefix.
+backup_pfx = "bk"
+# Force a particular boot location
+;dest_boot_loc = "HD1.3"
